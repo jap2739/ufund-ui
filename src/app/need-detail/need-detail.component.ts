@@ -39,8 +39,4 @@ export class NeedDetailComponent implements OnInit {
       .subscribe(() => this.goBack());
     }
   }
-<<<<<<< HEAD
-  
-=======
->>>>>>> 8b1e258 (Got the front end side of things working with the)
 }
