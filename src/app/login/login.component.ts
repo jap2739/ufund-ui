@@ -2,6 +2,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
+import { AppComponent } from '../app.component';
 
 import { User } from '../user';
 import { LoginService } from '../login.service';
@@ -13,37 +14,40 @@ import { LoginService } from '../login.service';
 })
 export class LoginComponent implements OnInit{
 
-  user: User | undefined;
-
+  //user: User | undefined;
+  users: User[] = [];
   constructor(
     private route: ActivatedRoute,
     private loginService: LoginService,
-    private location: Location
+    private location: Location,
+    private appComponent : AppComponent
   ) {}
   
   ngOnInit(): void {
     
+  }
 
-  }
-  getUser(): void {
-    const id = Number(this.route.snapshot.paramMap.get('id'));
-    this.loginService.getUser(id)
-      .subscribe(user => this.user = user);
-  }
   login(username: string, password: string):void {
-    //this.getUser();
-    //wait time?
-    localStorage.setItem("username", username);
 
-    //this.loginService.updateUser();
-    this.loginService.setUsername(username);
+        //before it adds the user you have to check to make
+        //sure that the username and password already dont
+        //exist together
 
-    if(username && password == "admin"){
-      window.location.href="http://localhost:4200/admin"
-      
-    }
-    else{
-      window.location.href="http://localhost:4200/dashboard"
-    }
-  }
+        localStorage.setItem("user",username);
+        console.log(localStorage.getItem("user"));
+
+        this.loginService.addUser({username,password} as User)
+        .subscribe(user => {
+          this.users.push(user);
+        })
+        
+
+        if(username && password == "admin"){
+          window.location.href="http://localhost:4200/admin"
+          
+        }
+        else{
+          window.location.href="http://localhost:4200/dashboard"
+        }
+      }
 }

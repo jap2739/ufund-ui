@@ -14,7 +14,7 @@ import { NeedSearchComponent } from './need-search/need-search.component';
 
 @NgModule({
   declarations: [
-    AppComponent,
+    AppComponent, 
     NeedsComponent,
     NeedDetailComponent,
     MessagesComponent,
